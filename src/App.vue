@@ -31,3 +31,20 @@
   color: #42b983;
 }
 </style>
+<script>
+import axios from 'axios';
+  export default {
+    data:function(){
+      return{
+        theData:{},
+      }
+    },
+    mounted:function(){
+      const baseURI = 'https://randomapi.com/api/6de6abfedb24f889e0b5f675edc50deb?fmt=raw&sole'
+      axios.get(baseURI)
+      .then((result) => {
+        this.theData = result.data
+      })      
+    }
+  }
+</script>
