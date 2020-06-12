@@ -30,10 +30,11 @@ Vue.use(VueRouter)
     path:'/spendinginfo/',
     name:'Spending Info',
     component: SpendingInfo,
+    props:true,
     children:[
-      {path:'',component: SpendingInfoHome},
-      {path:'summary',component: UserSummary},
-      {path:'chart',component: UserChart},
+      {path:'',component: SpendingInfoHome,props:true},
+      {path:'summary',component: UserSummary,props:true},
+      {path:'chart',component: UserChart,props:true},
     ]
   }
 ]

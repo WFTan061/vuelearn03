@@ -5,7 +5,7 @@
       <router-link to="/about">About</router-link> |
       <router-link to ="/SpendingInfo">SpendingInfo</router-link>
     </div>
-    <router-view/>
+    <router-view v-bind:theData="theData"/>
   </div>
 </template>
 
