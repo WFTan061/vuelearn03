@@ -5,7 +5,7 @@
       <router-link to="/about">About</router-link> |
       <router-link to ="/SpendingInfo">SpendingInfo</router-link>
     </div>
-    <router-view v-bind:theData="theData"/>
+    <router-view v-bind:theData="theData" v-bind:selectOptions="selectOptions"/>
   </div>
 </template>
 
@@ -37,14 +37,26 @@ import axios from 'axios';
     data:function(){
       return{
         theData:{},
+        selectOptions:{},
       }
     },
     mounted:function(){
-      const baseURI = 'https://randomapi.com/api/6de6abfedb24f889e0b5f675edc50deb?fmt=raw&sole'
+      const baseURI = 'https://randomapi.com/api/6de6abfedb24f889e0b5f675edc50deb?fmt=raw&sole';
       axios.get(baseURI)
       .then((result) => {
-        this.theData = result.data
+        this.theData = result.data;
+        this.selectOptions = this.theData.map(function(data,index){
+        let fullName = data.first + " " + data.last;
+          return{
+            text:fullName,
+            value:index,
+          }
+        })
       })      
     }
   }
 </script>
+
+
+let fullNameArray = 
+return fullNameArray
