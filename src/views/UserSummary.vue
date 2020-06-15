@@ -1,8 +1,8 @@
 <template>
-	<div v-if = "selectedData!==undefined">
-		Name: {{selectedData.first}} {{selectedData.last}}
+	<div v-if = "selectedData!==null">
+		Name: {{theData[selectedData].first}} {{theData[selectedData].last}}
 		<br>
-		Email: {{selectedData.email}}
+		Email: {{theData[selectedData].email}}
 	</div>
 	<div v-else>
 		<h2>SELECT DATA!</h2>
@@ -12,6 +12,6 @@
 
 <script>
 	export default{
-		props:['selectedData'],
+		props:['selectedData','theData'],
 	}
 </script>

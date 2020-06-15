@@ -1,3 +1,11 @@
 <template>
-	<div><h2>Spending Chart</h2></div>
+	<div>
+		test
+	</div>
 </template>
+
+<script>
+	export default{
+		props:['theData','selectedData'],
+	}
+</script>
