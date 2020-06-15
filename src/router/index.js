@@ -6,6 +6,7 @@ import SpendingInfo from '../views/SpendingInfo.vue'
 import UserSummary from '../views/UserSummary.vue'
 import UserChart from '../views/UserChart.vue'
 
+
 Vue.use(VueRouter)
 
   const routes = [
