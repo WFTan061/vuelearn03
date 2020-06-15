@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<combo-chart :data="chartData"/>
+		<combo-chart v-if = "selected!==null" :data="chartData"/>
 	</div>
 </template>
 
@@ -13,7 +13,7 @@ export default {
         'combo-chart': comboChart
     },
     props:['selected','theData','average'],
-    data() {
+    data: function() {
 		return {
 			chartData: { // for 'data' prop of 'bar-chart'
 				categories: ['January'],
@@ -21,7 +21,7 @@ export default {
 					line:[
 					{
 						name:'Average',
-						data:[0.5,0.5],
+						data:[this.average,this.average],
 					}
 					],
 					column:[
@@ -33,6 +33,16 @@ export default {
 				}
 			}
 		}
+	},
+	watch:{
+		theData: function(){
+			console.log(this.average);
+			//perform function to update combochart.
+		},
+		selected: function(){
+			console.log(this.selected)
+			//perform function to update combochart.
+		},
 	}
 }
 </script>

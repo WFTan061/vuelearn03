@@ -10,7 +10,7 @@
     <router-link to = "/UserSummary">Summary</router-link> |
     <router-link to = "/chart">Chart</router-link>
   </nav>
-  <router-view v-bind:selectedData = "selected" v-bind:theData = "theData" v-bind:average = "averageSpending"></router-view>
+  <router-view v-bind:selected = "selected" v-bind:theData = "theData" v-bind:average = "averageSpending"></router-view>
   </div>
 </template>
 <style>
