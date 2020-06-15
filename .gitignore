@@ -14,7 +14,7 @@ pnpm-debug.log*
 
 #firebase deployment directories/files.
 .firebase
-firebase
+firebase*
 dist
 
 # Editor directories and files
