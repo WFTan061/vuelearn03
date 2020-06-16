@@ -1,50 +1,28 @@
 <template>
   <div class = "container">
-    <h1></h1>
+    <h1>Spending chart {{this.averageSpending}}</h1>
     <b-form-select v-model = "selected" :options = "selectOptions">
       <template v-slot:first>
-        <b-form-select-option :value="null">-- Please select an option --</b-form-select-option>
+        <b-form-select-option :value="-1">-- Please select an option --</b-form-select-option>
       </template>
     </b-form-select>
   <nav>
-    <router-link to = "/UserSummary">Summary</router-link> |
+    <router-link to = "/UserSummary">Summary</router-link>
     <router-link to = "/chart">Chart</router-link>
   </nav>
-  <router-view v-bind:selected = "selected" v-bind:theData = "theData" v-bind:average = "averageSpending" v-bind:chartData = "chartData" @updateChart="updateChartData"></router-view>
+  <router-view v-bind:selectOps ="selectOptions" v-bind:selected = "selected" v-bind:average = "averageSpending" v-bind:chartData = "chartData"></router-view>
   </div>
 </template>
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
 
-#nav {
-  padding: 30px;
-}
-
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-#nav a.router-link-exact-active {
-  color: #42b983;
-}
-</style>
 <script>
 import axios from 'axios';
   export default {
     data:function(){
       return{
-        theData:{},
         selectOptions:{},
         averageSpending:0,
         selected:null,
-        chartData: { // for 'data' prop of 'bar-chart'
+        chartData: {
           categories: ['January'],
           series: {
             line:[
@@ -64,8 +42,9 @@ import axios from 'axios';
       }
     },
     methods:{
-      updateChartData:function(){
+      updateBalance:function(){
         if(this.selected!==null){
+           //only 1 column so should be okay to use array0?
           this.chartData.series.column[0].data = [this.selectOptions[this.selected].balance];
           this.chartData.series.column[0].name = this.selectOptions[this.selected].text;
         }else{
@@ -79,10 +58,9 @@ import axios from 'axios';
       //Use axios to access the api.
       axios.get(baseURI)
       .then((result) => {
-        this.theData = result.data;
         let totalSpending = 0;
         //populate form select options.
-        this.selectOptions = this.theData.map(function(data,index){
+        this.selectOptions = result.data.map(function(data,index){
           let fullName = data.first + " " + data.last;
           let balance = data.balance;
           //cleaning data of signs.
@@ -96,14 +74,24 @@ import axios from 'axios';
             text:fullName,
             value:index,
             balance: balance,
+            email: data.email,
+            first: data.first,
+            last: data.last
           }
         })
         //Calculate average spending
-        this.averageSpending = (totalSpending/this.theData.length).toFixed(2);
+        this.averageSpending = (totalSpending/result.data.length).toFixed(2);
         //update chart data.
         this.chartData.series.line[0].data = [this.averageSpending,this.averageSpending];
       })      
     },
+    watch:{
+    //apply changes when 
+      selected: function(){
+        //set new data to prevent vue from thinking nothing changed 
+        this.updateBalance();
+      },
+    }
 
   }
 </script>
