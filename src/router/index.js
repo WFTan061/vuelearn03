@@ -2,7 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 
 //routes
-import SpendingInfo from '../views/SpendingInfo.vue'
+import SpendingInfo from '../views/SpendingInfoHome.vue'
 import UserSummary from '../views/UserSummary.vue'
 import UserChart from '../views/UserChart.vue'
 

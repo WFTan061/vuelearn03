@@ -1,11 +1,12 @@
 <template>
-	<div v-if = "selected!==-1">
+	<!-- only display if something is selected. else display nothing selected message-->
+	<div v-if = "selected!==null">
 		Name: {{selectOps[selected].first}} {{selectOps[selected].last}}
 		<br>
 		Email: {{selectOps[selected].email}}
 	</div>
 	<div v-else>
-		<h2>SELECT DATA!</h2>
+		<h2>Select data to view detail summary of person.</h2>
 	</div>
 	
 </template>

@@ -1,14 +1,14 @@
 <template>
   <div class = "container">
-    <h1>Spending chart {{this.averageSpending}}</h1>
-    <b-form-select v-model = "selected" :options = "selectOptions">
+    <h1>Spending chart</h1>
+    <b-form-select v-model = "selected" :options = "selectOptions"> <!--dropdown-->
       <template v-slot:first>
-        <b-form-select-option :value="-1">-- Please select an option --</b-form-select-option>
+        <b-form-select-option :value="null">-- Please select an option --</b-form-select-option>
       </template>
     </b-form-select>
   <nav>
-    <router-link to = "/UserSummary">Summary</router-link>
-    <router-link to = "/chart">Chart</router-link>
+    <router-link to = "/UserSummary">Employee</router-link> |
+    <router-link to = "/chart">Spending</router-link>
   </nav>
   <router-view v-bind:selectOps ="selectOptions" v-bind:selected = "selected" v-bind:average = "averageSpending" v-bind:chartData = "chartData"></router-view>
   </div>
@@ -19,10 +19,10 @@ import axios from 'axios';
   export default {
     data:function(){
       return{
-        selectOptions:{},
-        averageSpending:0,
-        selected:null,
-        chartData: {
+        selectOptions:{}, //options for dropdown select menu
+        averageSpending:0, //average spending
+        selected:null,    //selected option
+        chartData: {      //chartdata intialization.
           categories: ['January'],
           series: {
             line:[
@@ -42,12 +42,15 @@ import axios from 'axios';
       }
     },
     methods:{
+      //change name/data
       updateBalance:function(){
+        //if something is chosen
         if(this.selected!==null){
-           //only 1 column so should be okay to use array0?
           this.chartData.series.column[0].data = [this.selectOptions[this.selected].balance];
           this.chartData.series.column[0].name = this.selectOptions[this.selected].text;
-        }else{
+        }
+        //if nothing is chosen in dropdown bar
+        else{
           this.chartData.series.column[0].name = "None selected"
           this.chartData.series.column[0].data = [0];
         }
@@ -86,11 +89,12 @@ import axios from 'axios';
       })      
     },
     watch:{
-    //apply changes when 
+      //watch what is selected
       selected: function(){
-        //set new data to prevent vue from thinking nothing changed 
+        //update everytime something selected is changed.
         this.updateBalance();
       },
+      //if possible should add in average/selectOptions. but no such function atm.
     }
 
   }
